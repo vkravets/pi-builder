@@ -26,7 +26,7 @@ It's a new approach to target OS building on embedded devices. With pi-builder, 
 # How does it work?
 Arch Linux ARM (and other systems as well) comes in form of a [minimal root file system](https://mirror.yandex.ru/archlinux-arm/os/) you can install on and run from a flash drive. As those are regular roots, you can use them to create your own base Docker image using [FROM scratch](https://docs.docker.com/develop/develop-images/baseimages). This image, however, will contain executables and libraries for the `ARM` architecture, and if your machine is, eg., `x86_64`, none of the commands in this image will run.
 
-The Linux kernel, however, has a special way to run binaries on a different architecture. You can configure [binfmt_misc](https://en.wikipedia.org/wiki/Binfmt_misc) to run ARM binaries using an emulator (in this case, `qemu-arm-static` for `x86_64` ). Pi-builder has a [small script](https://github.com/pikvm/pi-builder/blob/master/tools/install-binfmt) that sets up binfmt_misc on the host system to run ARM files.
+The Linux kernel, however, has a special way to run binaries on a different architecture. You can configure [binfmt_misc](https://en.wikipedia.org/wiki/Binfmt_misc) to run ARM binaries using an emulator (in this case, `qemu-arm-static` for `x86_64` ). Pi-builder has a [small script](https://github.com/pikvm/pi-builder/blob/master/toolbox/install-binfmt) that sets up binfmt_misc on the host system to run ARM files.
 
 In pi-builder, OS building is separated into **_stages_**, each of them being a different element of OS configuration. For example, the [ro](https://github.com/pikvm/pi-builder/tree/master/stages/ro) stage includes `Dockerfile.part` with all the necessary instructions and configs to create a read-only root. A [watchdog](https://github.com/pikvm/pi-builder/tree/master/stages/watchdog) stage has everything needed to set up a watchdog with optimal parameters on Raspberry Pi.
 
@@ -113,7 +113,7 @@ $ make
 
 ===== Available commands  =====
     make                # Print this help
-    rpi|rpi2|rpi3|rpi4|zero|zerow  # Build Arch-ARM rootfs with pre-defined config
+    rpi|rpi2|rpi3|rpi4|zero|zerow|zero2w  # Build Arch-ARM rootfs with pre-defined config
     make shell          # Run Arch-ARM shell
     make binfmt         # Before build
     make scan           # Find all RPi devices in the local network
